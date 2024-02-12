@@ -1,0 +1,43 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: workshop
+  labels:
+    name: workshop
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: workshop
+  labels:
+    app: postgres
+spec:
+  ports:
+  - port: 5454
+    targetPort: 5454
+  selector:
+    app: postgres
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pg-db
+  namespace: workshop
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: database
+        image: k8sworkshop6010.azurecr.io/sample/postgres:v1
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
