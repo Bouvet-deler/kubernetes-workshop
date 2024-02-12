@@ -19,6 +19,19 @@ spec:
   selector:
     app: postgres
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azure-storage
+  namespace: workshop
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: managed-csi
+  resources:
+    requests:
+      storage: 1Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -34,10 +47,21 @@ spec:
       labels:
         app: postgres
     spec:
+      volumes:
+      - name: postgresdb
+        persistentVolumeClaim:
+          claimName: azure-storage
       containers:
       - name: database
         image: k8sworkshop6010.azurecr.io/sample/postgres:v1
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: 100m
             memory: 100Mi
+          limits:
+            cpu: 1
+            memory: 500Mi
+        volumeMounts:
+        - name: postgresdb
+          mountPath: /var/lib/postgresql/data
