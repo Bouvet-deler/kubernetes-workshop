@@ -65,7 +65,7 @@ spec:
           claimName: azure-storage
       containers:
       - name: database
-        image: k8sworkshop6010.azurecr.io/sample/postgres:v1
+        image: k8sworkshop404.azurecr.io/sample/postgres:v1
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
