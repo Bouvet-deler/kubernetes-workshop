@@ -5,9 +5,7 @@
   let data: string;
 
   onMount(async () => {
-    console.log('Pre fetch');
-    
-    const resp = await fetch(`/svelte/api/todo`);
+    const resp = await fetch(`${base}/api/todo`);
     console.log(resp);
     data = await resp.json();
   });
