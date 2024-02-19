@@ -6,8 +6,8 @@ const pgp = pgPromise({});
 const host = process.env["HOST"]
 
 const db = pgp({
-  // host: "localhost",
-  host: host,
+  host: "postgres",
+  // host: host,
   port: 5432,
   database: 'todo',
   user: 'postgres',
@@ -15,6 +15,8 @@ const db = pgp({
 });
 
 export const GET = async () => {
+  console.log('During fetch');
+  
   try {
     const data = await db.any('SELECT * FROM todo');
     return new Response(JSON.stringify(data));

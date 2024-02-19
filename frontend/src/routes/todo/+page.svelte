@@ -1,10 +1,13 @@
 <script lang="ts">
+	import { base } from '$app/paths';
   import { onMount } from 'svelte';
 
   let data: string;
 
   onMount(async () => {
-    const resp = await fetch('/api/todo');
+    console.log('Pre fetch');
+    
+    const resp = await fetch(`/svelte/api/todo`);
     console.log(resp);
     data = await resp.json();
   });
