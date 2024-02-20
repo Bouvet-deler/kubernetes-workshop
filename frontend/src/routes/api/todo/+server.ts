@@ -3,14 +3,16 @@ import pgPromise from 'pg-promise';
 const pgp = pgPromise({});
 
 // We can also input the host as a variable from podman
-const host = process.env["HOST"]
+const host = process.env["PG_HOST"]
+const user = process.env["PG_USER"]
+const password = process.env["POSTGRES_PASSWORD"]
+const database = process.env["POSTGRES_DB"]
 
 const db = pgp({
-  host: "postgres",
-  // host: host,
-  database: 'todo',
-  user: 'postgres',
-  password: 'pass',
+  host: host,
+  user: user,
+  database: database,
+  password: password,
 });
 
 export const GET = async () => {

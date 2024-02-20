@@ -56,6 +56,9 @@ spec:
       - name: frontend
         image: k8sworkshop404.azurecr.io/sample/frontend:0.1.0-node
         imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: postgres-config
         resources:
           requests:
             cpu: 100m

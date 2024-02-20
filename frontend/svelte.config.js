@@ -14,7 +14,6 @@ const config = {
 		adapter: adapter(),
 		paths: {
 			base: '/svelte',
-			relative: false
 		}
 	}
 };

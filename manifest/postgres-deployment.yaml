@@ -27,6 +27,8 @@ metadata:
   labels:
     app: postgres
 data:
+  PG_HOST: postgres
+  PG_USER: postgres
   POSTGRES_PASSWORD: pass
   POSTGRES_DB: todo
   PGDATA: /var/lib/postgresql/data/pgdata
