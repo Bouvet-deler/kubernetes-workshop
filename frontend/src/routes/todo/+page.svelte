@@ -1,16 +1,59 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-  import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
-  let data: string;
+	type Todo = {
+		id: number;
+		message: string;
+		completed: boolean;
+	};
 
-  onMount(async () => {
-    const resp = await fetch(`${base}/api/todo`);
-    console.log(resp);
-    data = await resp.json();
-  });
+	type DbError = {
+		status: number;
+		body: {};
+	};
+
+	function isError(res: Todo[] | DbError): res is DbError {
+		return (res as DbError)?.status !== undefined;
+	}
+
+	function isTodo(res: Todo[] | DbError): res is Todo[] {
+		return (res as Todo[])?.[0]?.id !== undefined;
+	}
+
+	let todos: Todo[] | DbError;
+
+	onMount(async () => {
+		const resp = await fetch(`${base}/api/todo`);
+		todos = await resp.json();
+	});
 </script>
 
-TODO:
+<div>
+	{#if isTodo(todos)}
+		{#each todos as todo}
+			<div class="parent-container flex todo">
+				<div>{todo.message}</div>
+				<button>{todo.completed}</button>
+			</div>
+		{/each}
+	{:else}
+		{JSON.stringify(todos)}
+	{/if}
+</div>
 
-{JSON.stringify(data)}
+<style>
+	.todo {
+		text-align: center;
+	}
+
+  .flex{
+			display: flex;
+			justify-content: space-evenly;
+	}
+
+  .parent-container{
+			border: 2px black solid;
+			gap: 1rem;
+	}
+</style>
