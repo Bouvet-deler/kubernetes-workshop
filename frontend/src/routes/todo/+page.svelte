@@ -45,6 +45,7 @@
 <style>
 	.todo {
 		text-align: center;
+    background-color: lightgray;
 	}
 
   .flex{
@@ -53,7 +54,7 @@
 	}
 
   .parent-container{
-			border: 2px black solid;
+			border: 2px slategray solid;
 			gap: 1rem;
 	}
 </style>

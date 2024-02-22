@@ -59,6 +59,17 @@ spec:
         envFrom:
         - configMapRef:
             name: postgres-config
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: pg-password
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: pg-username
         resources:
           requests:
             cpu: 100m
@@ -66,3 +77,10 @@ spec:
           limits:
             cpu: 1
             memory: 500Mi
+      volumes:
+      - name: secrets-store01-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-sync"

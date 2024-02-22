@@ -28,8 +28,6 @@ metadata:
     app: postgres
 data:
   PG_HOST: postgres
-  PG_USER: postgres
-  POSTGRES_PASSWORD: pass
   POSTGRES_DB: todo
   PGDATA: /var/lib/postgresql/data/pgdata
 ---
@@ -65,6 +63,12 @@ spec:
       - name: postgresdb
         persistentVolumeClaim:
           claimName: azure-storage
+      - name: secrets-store01-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-sync"
       containers:
       - name: database
         image: k8sworkshop404.azurecr.io/sample/postgres:v1
@@ -72,6 +76,12 @@ spec:
         envFrom:
         - configMapRef:
             name: postgres-config
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: pg-password
         resources:
           requests:
             cpu: 100m
@@ -82,3 +92,6 @@ spec:
         volumeMounts:
         - name: postgresdb
           mountPath: /var/lib/postgresql/data
+        - name: secrets-store01-inline
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
