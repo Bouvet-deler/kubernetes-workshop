@@ -16,7 +16,7 @@ spec:
   parameters:
       usePodIdentity: "false"
       useVMManagedIdentity: "true"          # Set to true for using managed identity
-      userAssignedIdentityID: 3c10f926-b3bf-44a7-9268-8db52b3b45a4   # Set the clientID of the user-assigned managed identity to use
+      userAssignedIdentityID: 44dda880-5f14-481d-baa3-3a7c22c680f4   # Set the clientID of the user-assigned managed identity to use
       keyvaultName: workshop-vault        # Set to the name of your key vault
       objects:  |
         array:

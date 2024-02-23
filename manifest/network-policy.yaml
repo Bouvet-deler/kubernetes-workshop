@@ -1,0 +1,56 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: frontend-policy
+  namespace: workshop
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+    - from:
+      - ipBlock:
+          cidr: 0.0.0.0/0
+    - from:
+      - podSelector:
+          matchLabels:
+            app: postgres
+  egress:
+    - to:
+        - namespaceSelector: {}
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to:
+      - podSelector:
+          matchLabels:
+            app: postgres
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: database-policy
+  namespace: workshop
+spec:
+  podSelector:
+    matchLabels:
+      app: postgres
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: frontend
+  egress:
+    - to:
+      - podSelector:
+          matchLabels:
+            app: frontend
