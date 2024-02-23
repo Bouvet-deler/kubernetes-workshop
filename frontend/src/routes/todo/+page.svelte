@@ -13,10 +13,6 @@
 		body: {};
 	};
 
-	function isError(res: Todo[] | DbError): res is DbError {
-		return (res as DbError)?.status !== undefined;
-	}
-
 	function isTodo(res: Todo[] | DbError): res is Todo[] {
 		return (res as Todo[])?.[0]?.id !== undefined;
 	}
@@ -32,9 +28,9 @@
 <div>
 	{#if isTodo(todos)}
 		{#each todos as todo}
-			<div class="parent-container flex todo">
+			<div class="parent-container flex todo" style="background-color: {todo.completed ? "lightgreen" : "lightgray"};">
+				<input type="checkbox" checked={todo.completed} />
 				<div>{todo.message}</div>
-				<button>{todo.completed}</button>
 			</div>
 		{/each}
 	{:else}
@@ -50,7 +46,7 @@
 
   .flex{
 			display: flex;
-			justify-content: space-evenly;
+			justify-content: space-between;
 	}
 
   .parent-container{
