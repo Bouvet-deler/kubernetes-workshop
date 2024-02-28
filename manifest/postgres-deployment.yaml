@@ -63,12 +63,6 @@ spec:
       - name: postgresdb
         persistentVolumeClaim:
           claimName: azure-storage
-      - name: secrets-store01-inline
-        csi:
-          driver: secrets-store.csi.k8s.io
-          readOnly: true
-          volumeAttributes:
-            secretProviderClass: "azure-sync"
       containers:
       - name: database
         image: k8sworkshop404.azurecr.io/sample/postgres:v1
@@ -92,6 +86,3 @@ spec:
         volumeMounts:
         - name: postgresdb
           mountPath: /var/lib/postgresql/data
-        - name: secrets-store01-inline
-          mountPath: "/mnt/secrets-store"
-          readOnly: true

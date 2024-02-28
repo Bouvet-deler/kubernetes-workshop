@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: workshop-sa
+  namespace: workshop
+  annotations:
+    azure.workload.identity/client-id: 249b2133-2992-4d4d-94a5-390ae131e21a

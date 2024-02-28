@@ -77,10 +77,3 @@ spec:
           limits:
             cpu: 1
             memory: 500Mi
-      volumes:
-      - name: secrets-store01-inline
-        csi:
-          driver: secrets-store.csi.k8s.io
-          readOnly: true
-          volumeAttributes:
-            secretProviderClass: "azure-sync"
