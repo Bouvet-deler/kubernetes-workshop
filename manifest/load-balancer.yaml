@@ -1,0 +1,66 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: load-balance
+  labels:
+    name: load-balance
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aspnetapp
+  namespace: load-balance
+spec:
+  selector:
+    app: aspnetapp
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aspnetapp
+  namespace: load-balance
+spec:
+  ingressClassName: azure-application-gateway
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          service:
+            name: aspnetapp
+            port:
+              number: 80
+        pathType: Exact
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aspnetapp
+  namespace: load-balance
+spec:
+  selector:
+    matchLabels:
+      app: aspnetapp
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: aspnetapp
+    spec:
+      containers:
+      - name: aspnetapp-image
+        image: "mcr.microsoft.com/dotnet/samples:aspnetapp"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 1
+            memory: 500Mi
