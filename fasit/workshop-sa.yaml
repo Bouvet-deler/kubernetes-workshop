@@ -1,7 +1,17 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: workshop
+  labels:
+    name: workshop
+
+---
+
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: workshop-sa
   namespace: workshop
   annotations:
-    azure.workload.identity/client-id: 249b2133-2992-4d4d-94a5-390ae131e21a
+    azure.workload.identity/client-id: 74d9dac7-1f7f-485f-94b7-0c6a093f5288
+    azure.workload.identity/tenant-id: fdf88c80-36e9-45ee-a0b2-d7eb687e39eb

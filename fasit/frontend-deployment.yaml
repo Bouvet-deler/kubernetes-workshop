@@ -1,3 +1,12 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: workshop
+  labels:
+    name: workshop
+
+---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -47,7 +56,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: k8sworkshop404.azurecr.io/sample/frontend:0.1.0-node
+        image: workshopacrsqr2klsnuxgxa.azurecr.io/sample/frontend:0.1.0
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
