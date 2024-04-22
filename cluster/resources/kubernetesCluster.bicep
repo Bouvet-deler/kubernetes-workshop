@@ -1,11 +1,5 @@
-@description('The base name of bicep resources.')
-param baseName string = 'workshop'
-
-@description('The name of the Managed Cluster resource.')
-param clusterName string = '${baseName}-cluster'
-
-@description('The location of the Managed Cluster resource.')
-param location string = resourceGroup().location
+param location string
+param clusterName string
 
 @description('Disk size (in GB) to provision for each of the agent pool nodes. This value ranges from 0 to 1023. Specifying 0 will apply the default disk size for that agentVMSize.')
 @minValue(0)

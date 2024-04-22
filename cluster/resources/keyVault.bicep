@@ -1,5 +1,4 @@
 param location string
-param identityPrincipalId string
 param keyVaultName string
 
 @description('Specifies whether Azure Virtual Machines are permitted to retrieve certificates stored as secrets from the key vault.')
@@ -33,6 +32,8 @@ param secretsPermissions array = [
 ])
 param skuName string = 'standard'
 
+param postgresUsername string = 'postgres'
+
 resource kv 'Microsoft.KeyVault/vaults@2023-07-01' = {
   name: keyVaultName
   location: location
@@ -43,7 +44,7 @@ resource kv 'Microsoft.KeyVault/vaults@2023-07-01' = {
     tenantId: tenantId
     accessPolicies: [
       {
-        objectId: identityPrincipalId
+        objectId: managedIdentity.properties.principalId
         tenantId: tenantId
         permissions: {
           keys: keysPermissions
@@ -82,7 +83,7 @@ resource pgUsername 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   parent: kv
   name: 'PostgresUsername'
   properties: {
-    value: 'postgres'
+    value: postgresUsername
   }
 }
 
@@ -92,4 +93,12 @@ resource pgPassword 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   properties: {
     value: uniqueString(resourceGroup().id)
   }
+}
+
+@description('Name of the identity k8s will use with the vault')
+param identityName string = 'k8s-identity'
+
+resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
+  name: identityName
+  location: location
 }

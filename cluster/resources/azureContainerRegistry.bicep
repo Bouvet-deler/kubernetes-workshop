@@ -34,12 +34,3 @@ resource assignAcrPullToAks 'Microsoft.Authorization/roleAssignments@2022-04-01'
   }
 }
 
-@description('Name of the identity k8s will use with the vault')
-param identityName string = 'k8s-identity'
-
-resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
-  name: identityName
-  location: location
-}
-
-output identityPrincipalId string = managedIdentity.properties.principalId
