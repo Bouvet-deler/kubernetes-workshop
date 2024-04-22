@@ -24,6 +24,8 @@
 
 ### Bicep install
 
+`cd cluster`
+
 `az group create --name <resource-group-name> --location norwayeast`
 
 `az deployment group create --resource-group <resource-group-name> --template-file .\main.bicep`
@@ -47,9 +49,8 @@
 `az identity federated-credential create --name "kubernetes-federated-credential" --identity-name "k8s-identity" --resource-group "<resource-group-name>" --issuer "<OIDC-issuer-URL>" --subject "system:serviceaccount:workshop:workshop-sa"`
 
 - Controll that the vault URL in `azure-secrets-store.yaml` is correct
-- Update client and tenant id in workshop-sa
-
-These can be found on k8s-identity properties. Either in Azure portal or through CLI
+- Update client and tenant id in `workshop-sa.yaml`
+    - These can be found on k8s-identity properties. Either in Azure portal or through CLI
 
 ## Enable Application gateway, exposing services on a public IP
 
@@ -96,7 +97,13 @@ The publicIp, vnet, and subnet were deployed by `main.bicep` find their names on
 
 Registry name can be found in azure portal or through CLI 
 
+`cd database`
+
 `az acr build --image sample/postgres:0.1.0 --registry <registry-name> --file Dockerfile .`
+
+`cd frontend`
+
+`az acr build --image sample/frontend:0.1.0 --registry <registry-name> --file Dockerfile .`
 
 - Edit the frontend and postgres deployment with the correct image registry URL
 
