@@ -125,4 +125,6 @@ Use Azure portal or:
 
 - Purge key vault
 
+`az keyvault list-deleted --subscription <subscription-id> --resource-type vault`
+
 `az keyvault purge --subscription <subscription-id> -n <key-vault-name>`
