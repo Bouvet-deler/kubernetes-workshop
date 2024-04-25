@@ -28,7 +28,7 @@
 
 `az group create --name <resource-group-name> --location norwayeast`
 
-`az deployment group create --resource-group <resource-group-name> --template-file .\main.bicep`
+`az deployment group create --resource-group <resource-group-name> --template-file main.bicep`
 
 ### Install CRDs
 
