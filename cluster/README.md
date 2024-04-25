@@ -48,8 +48,8 @@
 
 `az identity federated-credential create --name "kubernetes-federated-credential" --identity-name "k8s-identity" --resource-group "<resource-group-name>" --issuer "<OIDC-issuer-URL>" --subject "system:serviceaccount:workshop:workshop-sa"`
 
-- Controll that the vault URL in `azure-secrets-store.yaml` is correct
-- Update client and tenant id in `workshop-sa.yaml`
+- Controll that the vault URL in [`fasit/azure-secrets-store.yaml`](../fasit/azure-secrets-store.yaml) is correct
+- Update client and tenant id in [`fasit/workshop-sa.yaml`](../fasit/workshop-sa.yaml)
     - These can be found on k8s-identity properties. Either in Azure portal or through CLI
 
 ## Enable Application gateway, exposing services on a public IP
@@ -58,7 +58,7 @@
 
 The publicIp, vnet, and subnet were deployed by `main.bicep` find their names on the Azure portal or throug CLI. The application gateway name can be freely chosen
 
-`az network application-gateway create -n <application-gateway-name> -g <resource-group-name> --sku Standard_v2 --public-ip-address <publicIp-name> --vnet-name <ag-vnet-name> --subnet <subnet-name> --priority 100`
+`az network application-gateway create -n <application-gateway-name> -g <resource-group-name> --sku Standard_v2 --public-ip-address workshop-publicIp --vnet-name <ag-vnet-name> --subnet workshop-subnet --priority 100`
 
 - Get aplication gateway id
 
