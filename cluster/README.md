@@ -58,7 +58,7 @@
 
 The publicIp, vnet, and subnet were deployed by `main.bicep` find their names on the Azure portal or throug CLI. The application gateway name can be freely chosen
 
-`az network application-gateway create -n <application-gateway-name> -g <resource-group-name> --sku Standard_v2 --public-ip-address workshop-publicIp --vnet-name <ag-vnet-name> --subnet workshop-subnet --priority 100`
+`az network application-gateway create -n <application-gateway-name> -g <resource-group-name> --sku Standard_v2 --public-ip-address workshop-publicIp --vnet-name workshop-vnet --subnet workshop-subnet --priority 100`
 
 - Get aplication gateway id
 
