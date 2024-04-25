@@ -32,7 +32,7 @@
 
 ### Install CRDs
 
-`az aks get-credentials -n <cluster-name> -g <resource-group-name>`
+`az aks get-credentials -n workshop-cluster -g <resource-group-name>`
 
 `helm repo add external-secrets https://charts.external-secrets.io`
 
@@ -42,7 +42,7 @@
 
 - Get OIDC Issuer URL
 
-`az aks show --resource-group <resource-group-name> --name <cluster-name> --query "oidcIssuerProfile.issuerUrl" -otsv`
+`az aks show --resource-group <resource-group-name> --name workshop-cluster --query "oidcIssuerProfile.issuerUrl" -otsv`
 
 - Add federated identity
 
@@ -66,11 +66,11 @@ The publicIp, vnet, and subnet were deployed by `main.bicep` find their names on
 
 - Enable AGIC
 
-`az aks enable-addons -n <cluster-name> -g <resource-group-name> -a ingress-appgw --appgw-id <application-gateway-id>`
+`az aks enable-addons -n workshop-cluster -g <resource-group-name> -a ingress-appgw --appgw-id <application-gateway-id>`
 
 - Get node resource group
 
-`az aks show -n <cluster-name> -g <resource-group-name> -o tsv --query "nodeResourceGroup"`
+`az aks show -n workshop-cluster -g <resource-group-name> -o tsv --query "nodeResourceGroup"`
 
 - Get node vnet name
 
