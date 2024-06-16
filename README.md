@@ -52,13 +52,49 @@ Use package manager of choice or build from source: [install k9s](https://k9scli
 - Update the file `manifest/namespace.yaml` with a unique name
 - Deploy the namespace by running: `kubectl apply -f namespace.yaml`
 
-## Oppgave 2
+## Task 1
+
+### Build and push image to registry
+ 
+ - Navigate to `aspnetapp\aspnetapp\Program.cs` and update line 24 to something unique
+ - Build the Dockerfile in `aspnetapp`
+ - Choose a prefix so that all of your images get a unique name and run:
+
+`az acr build --image <uri-prefix>/aspnet:v1 --registry workshopacrsqr2klsnuxgxa --file Dockerfile .`
+
+### Update task-1.yaml
+
+ - Update namespace to your own
+ - In `Pod` definition at `spec.containers[0].image` update to the correct uri for your image
+ - In `Ingress` definition at `spec.rules[0].http.paths[0].path` set the base path chosen in `Program.cs`
+
+### Deploy in Kubernetes
+
+ - Run:
+
+`kubectl apply -f task-1.yaml`
+
+### Check that the service in available
+
+ - Find the IP address using k9s: `:ingress`
+ - Navigate to `ip-adresse/subdirectory` in the browser
+
+
+## Task 2
 
 ### Build and push image to registry
 
-`az acr build --image <uri-prefix>/database:v1 --registry mycontainerregistry008 --file Dockerfile .`
+ - Navigate to `frontend\svelte.config.js` and update line 16 to a path where you will host the frontend
+ - Build the frontend image
 
+`az acr build --image <uri-prefix>/<name>:version --registry workshopacrsqr2klsnuxgxa --file Dockerfile .`
 
-## Deploy app to Kubernetes
+### Update frontend.yaml with your own:
 
-`kubectl apply -f postgres-deployment.yaml`
+ - namespace
+ - subdirectory (base path)
+ - image prefix and name
+
+### Deploy the frontend to Kubernetes
+
+`kubectl apply -f frontend.yaml`
