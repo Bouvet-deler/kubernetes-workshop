@@ -9,7 +9,7 @@ param osDiskSizeGB int = 0
 @description('The number of nodes for the cluster.')
 @minValue(1)
 @maxValue(50)
-param agentCount int = 1
+param agentCount int = 2
 
 @description('The minimum of nodes for the cluster.')
 @minValue(1)
@@ -22,7 +22,7 @@ param minCount int = 1
 param maxCount int = 100
 
 @description('The size of the Virtual Machine.')
-param agentVMSize string = 'Standard_D2s_v3'
+param agentVMSize string = 'Standard_D8ds_v5'
 
 resource aks 'Microsoft.ContainerService/managedClusters@2024-01-01' = {
   name: clusterName
