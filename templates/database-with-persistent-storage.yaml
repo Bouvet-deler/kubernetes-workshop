@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azure-storage
+  namespace: ඞඞඞ
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: managed-csi
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pg-db
+  namespace: ඞඞඞ
+spec:
+  selector:
+    matchLabels:
+      app: ඞඞඞ
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ඞඞඞ
+    spec:
+      volumes: # Add this section
+      - name: postgresdb
+        persistentVolumeClaim:
+          claimName: azure-storage
+      containers:
+      - name: database
+        image: workshopacrsqr2klsnuxgxa.azurecr.io/ඞඞඞ/name:version
+        imagePullPolicy: Always
+        volumeMounts: # Add this section
+        - name: postgresdb
+          mountPath: /var/lib/postgresql/data

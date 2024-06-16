@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-config
+  namespace: ඞඞඞ
+data:
+  some_key: some value
+  sus: ඞඞඞ

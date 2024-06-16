@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-deployment
+  namespace: ඞඞඞ
+  labels:
+    app: ඞඞඞ
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ඞඞඞ
+  template:
+    metadata:
+      labels:
+        app: ඞඞඞ
+    spec:
+      containers:
+      - name: database
+        image: workshopacrsqr2klsnuxgxa.azurecr.io/ඞඞඞ/name:version
+        envFrom:
+        - configMapRef:
+            name: database-config

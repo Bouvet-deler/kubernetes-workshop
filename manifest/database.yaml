@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: ඞඞඞ
+  labels:
+    app: ඞඞඞ
+spec:
+  ports:
+  - port: ඞඞඞ
+    targetPort: ඞඞඞ
+  selector:
+    app: ඞඞඞ
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-deployment
+  namespace: ඞඞඞ
+  labels:
+    app: ඞඞඞ
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ඞඞඞ
+  template:
+    metadata:
+      labels:
+        app: ඞඞඞ
+    spec:
+      containers:
+      - name: database
+        image: workshopacrsqr2klsnuxgxa.azurecr.io/ඞඞඞ/name:version
