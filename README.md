@@ -1,5 +1,5 @@
-# kubernetes-workshop
-Kubernetes workshop for developers
+# Kubernetes Workshop
+Kubernetes workshop for developers.
 
 ## Oppgave 0
 
@@ -142,4 +142,29 @@ To externalize the storage we need to ask kubernetes for a storage volume using 
  - Update the config map with this entry: `PGDATA: /var/lib/postgresql/data/pgdata`
  - Redploy the resources you have changed
 
-Now you should be able to add todos from the frontend, delete the database with `Ctrl` + `k` in k9s, and see the same todos once the database restarts
+Now you should be able to add todos from the frontend, delete the database with `Ctrl` + `k` in k9s, and see the same todos once the database restarts.
+
+## Task 4
+
+### Configure network policy
+
+Default Kubernetes policy is to allow all traffic. This is not in line with the priciple of least privilege. Therfore a good practice is to deploy a network policy which disallowes all traffic, and explicitly allows only desired connections.
+
+ - Create and deploy a deny all network policy. See the template file `deny-all-policy.yaml` for help
+ - Check the frontend to see that it has lost connection to the database
+ - Deploy a network policy which only allows the required communication. See the template file
+ - Check the frontend again to see that communication is re-established
+
+### Use secrets from Azure Key Vault
+
+To use secrets from azure key vault the cluster uses RBAC to connceted to a managed identity to authenticate with azure. In kubernetes this identity is interacted with through a service account. First create you secrets in azure. The password and username for postgres are good candidates. As you share the key vault with all the workshop participants make sure your secret names are unique in the vault.
+
+- Create you secrets through the azure portal
+- Deploy a service account based on the template
+- Deploy a secret store based on the templte. This establishes a connection to the key vault
+- Deploy an external secret based on the template. This craetes kubernetes secrets based on the key vault secret and keeps these in sync
+- Remove the secrets from the config map and re deploy it.
+- Get the secret values from the kubernetes secrets. See `deployment-with-secrets.yaml` for help
+- If you changed the secret values youm will need to delete the old database. To do that you need to delete the Persistent Volume. In k9s: Navigate to persistent volumes `:pv` delete the volume `Ctrl` + `d` Navigate to persistent volume claims `:pvc` delete the claim `Ctrl` + `d` Navigate to pods `:po` delete the database `Ctrl` + `k`
+
+Once the database restarts it should now be using the new secrets safely stored in Azure Key Vault. Note that by default anyone with acces to the cluster can read the secret. Try yourself! In k9s navigate to secrets `:secret` decode the secret by hitting `x`. Remember that secrets in the cluster are simply base64 encoded by default
