@@ -31,7 +31,7 @@ We will be using a tenant with ID: `fdf88c80-36e9-45ee-a0b2-d7eb687e39eb`
 
 ### Set kubectl context
 
-`az aks get-credentials --admin --name workshop --resource-group kubernetes-workshop`
+`az aks get-credentials --admin --name workshop --resource-group k8s-workshop`
 
 ### Install k9s (Kubernetes GUI)
 
