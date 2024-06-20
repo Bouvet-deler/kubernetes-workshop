@@ -1,7 +1,7 @@
 # Kubernetes Workshop
 Kubernetes workshop for developers.
 
-## Oppgave 0
+## Task 0
 
 ### Install the Azure cli
 
