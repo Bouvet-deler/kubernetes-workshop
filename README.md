@@ -7,15 +7,21 @@ Kubernetes workshop for developers.
 
 Windows
 
-`winget install -e --id Microsoft.AzureCLI`
+```ps
+winget install -e --id Microsoft.AzureCLI
+```
 
 MacOS
 
-`brew update && brew install azure-cli`
+```bash
+brew update && brew install azure-cli
+```
 
 Linux
 
-`curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash`
+```bash
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+```
 
 There are step-by-step installation instructions if you prefer not to run the script from Microsoft
 
@@ -23,25 +29,35 @@ There are step-by-step installation instructions if you prefer not to run the sc
 
 We will be using a tenant with ID: `fdf88c80-36e9-45ee-a0b2-d7eb687e39eb`
 
-`az login --tenant <Tenant_id>`
+```bash
+az login --tenant <Tenant_id>
+```
 
 ### Install kubectl
 
-`az aks install-cli`
+```bash
+az aks install-cli
+```
 
 ### Set kubectl context
 
-`az aks get-credentials --name workshop-cluster --resource-group k8s-workshop`
+```bash
+az aks get-credentials --name workshop-cluster --resource-group k8s-workshop
+```
 
 ### Install k9s (Kubernetes GUI)
 
 Windows
 
-`winget install k9s`
+```ps
+winget install k9s
+```
 
 MacOS
 
-`brew install derailed/k9s/k9s`
+```bash
+brew install derailed/k9s/k9s
+```
 
 Linux
 
@@ -49,18 +65,25 @@ Use package manager of choice or build from source: [install k9s](https://k9scli
 
 ### Deploy your namespace
 
-- Update the file `manifest/namespace.yaml` with a unique name
+In Kubernetes, namespaces provide a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces.
+
+- Update the file `manifest/namespace.yaml` with a unique name for your namespace, for instance your slack username
 - Deploy the namespace by running: `kubectl apply -f namespace.yaml`
 
 ## Task 1
 
+You will now build an image and deploy it to the Azure Container Registry (ACR). 
+All containers must have a unique name within the ACR. 
+During this workshop you should choose a unique prefix so all your images gets a uniqe name, for instance your full name.
+
 ### Build and push image to registry
  
- - Navigate to `aspnetapp\aspnetapp\Program.cs` and update line 24 to something unique
- - Build the Dockerfile in `aspnetapp`
- - Choose a prefix so that all of your images get a unique name and run:
+ - Navigate to `aspnetapp\aspnetapp\Program.cs` and update line 24 with a unique path
+ - Build the Dockerfile in `aspnetapp`. Choose a prefix so that all of your images get a unique name and run:
 
-`az acr build --image <uri-prefix>/aspnet:v1 --registry workshopacrsqr2klsnuxgxa --file Dockerfile .`
+```bash
+az acr build --image <uri-prefix>/aspnet:v1 --registry workshopacrsqr2klsnuxgxa --file Dockerfile .
+```
 
 ### Update task-1.yaml
 
@@ -72,22 +95,29 @@ Use package manager of choice or build from source: [install k9s](https://k9scli
 
  - Run:
 
-`kubectl apply -f task-1.yaml`
+```bash
+kubectl apply -f task-1.yaml
+```
 
 ### Check that the service is available
 
  - Find the IP address using k9s: `:ingress`
  - Navigate to `ip-address/subdirectory` in the browser
+    - The subdirectory is the path from `Program.cs`
 
 
 ## Task 2
+
+You will now deploy a Svelte front end, which has nothing to do with the app you deployed in task 1.
 
 ### Build and push image to registry
 
  - Navigate to `frontend\svelte.config.js` and update line 16 to a path where you will host the frontend
  - Build the frontend image
 
-`az acr build --image <uri-prefix>/<name>:version --registry workshopacrsqr2klsnuxgxa --file Dockerfile .`
+```bash
+az acr build --image <uri-prefix>/<name>:<versionnumber> --registry workshopacrsqr2klsnuxgxa --file Dockerfile .
+```
 
 ### Update frontend.yaml with your own:
 
@@ -97,7 +127,9 @@ Use package manager of choice or build from source: [install k9s](https://k9scli
 
 ### Deploy the frontend to Kubernetes
 
-`kubectl apply -f frontend.yaml`
+```bash
+kubectl apply -f frontend.yaml
+```
 
 ## Task 3
 
