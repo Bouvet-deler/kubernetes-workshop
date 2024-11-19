@@ -32,7 +32,7 @@ spec:
           claimName: azure-storage
       containers:
       - name: database
-        image: workshopacrsqr2klsnuxgxa.azurecr.io/ඞඞඞ/name:version
+        image: workshopacrsqr2klsnuxgxa.azurecr.io/ඞඞඞ/name:0.1.0
         imagePullPolicy: Always
         volumeMounts: # Add this section
         - name: postgresdb

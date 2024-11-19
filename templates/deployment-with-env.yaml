@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: database
-        image: workshopacrsqr2klsnuxgxa.azurecr.io/ඞඞඞ/name:version
+        image: workshopacrsqr2klsnuxgxa.azurecr.io/ඞඞඞ/name:0.1.0
         env:
         - name: DEMO_GREETING
           value: "Hello from the environment"

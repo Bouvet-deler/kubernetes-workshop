@@ -116,7 +116,7 @@ You will now deploy a Svelte front end, which has nothing to do with the app you
  - Build the frontend image
 
 ```bash
-az acr build --image <uri-prefix>/<name>:<versionnumber> --registry workshopacrsqr2klsnuxgxa --file Dockerfile .
+az acr build --image <uri-prefix>/<name>:<tag> --registry workshopacrsqr2klsnuxgxa --file Dockerfile .
 ```
 
 ### Update frontend.yaml with your own:
