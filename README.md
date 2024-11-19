@@ -147,7 +147,7 @@ kubectl apply -f frontend.yaml
 
 ### Improve the deployment
 
-In this step we will improve the deployment and get closer to best practices. The two big problems with this deployment are that data is being stored the pod's local storage, which means that if the pod is deleted all the data is lost. Obviously not ideal for a database.
+In this step we will improve the deployment and get closer to best practices. The two big problems with this deployment are that data is being stored in the pod's local storage, which means that if the pod is deleted all the data is lost. Obviously not ideal for a database.
 
 The other large issue is that the 'secret' password is in clear text in the yaml file which is committed to version control.
 
@@ -189,11 +189,14 @@ Default Kubernetes policy is to allow all traffic. This is not in line with the 
 
 ### Use secrets from Azure Key Vault
 
-To use secrets from azure key vault the cluster uses RBAC to connected to a managed identity to authenticate with azure. In kubernetes this identity is interacted with through a service account. First create you secrets in azure. The password and username for postgres are good candidates. As you share the key vault with all the workshop participants make sure your secret names are unique in the vault.
+To use secrets from azure key vault the cluster uses RBAC to connected to a managed identity to authenticate with azure. In kubernetes this identity is interacted with through a service account. First create your secrets in the azure key vault. The password and username for postgres are good candidates. As you share the key vault with all the workshop participants make sure your secret names are unique in the vault.
 
-- Create you secrets through the azure portal
+- Create your secrets through the azure portal
 - Deploy a service account based on the template
-- Deploy a secret store based on the temple. This establishes a connection to the key vault
+- Open the k8s-identity in the Azure Portal
+    - Under Settings -> Federated credentials add a new credential for the service account you just deployed
+    - Copy the one you see there. The Issuer is the same for your new credential. The scope should point to your service account  
+- Deploy a secret store based on the template. This establishes a connection to the key vault
 - Deploy an external secret based on the template. This creates kubernetes secrets based on the key vault secret and keeps these in sync
 - Remove the secrets from the config map and re deploy it.
 - Get the secret values from the kubernetes secrets. See `deployment-with-secrets.yaml` for help
