@@ -113,7 +113,8 @@ You will now deploy a Svelte front end, which has nothing to do with the app you
 
 ### Build and push image to registry
 
- - Navigate to `frontend\svelte.config.js` and update line 16 to a path where you will host the frontend
+ - Navigate to `frontend\svelte.config.js` and update line 16 to a path where you will host the frontend.
+    - This path cannot be the same path as the one you set in `aspnetapp`.
  - Build the frontend image
 
 ```bash
