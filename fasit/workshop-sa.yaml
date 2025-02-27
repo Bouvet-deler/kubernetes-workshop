@@ -13,5 +13,5 @@ metadata:
   name: workshop-sa
   namespace: workshop
   annotations:
-    azure.workload.identity/client-id: 459b3fcd-f9ba-4f48-8856-c3c8cbbb89ac
+    azure.workload.identity/client-id: 6e6a41dc-e652-48e8-a69b-93614eea4ee0
     azure.workload.identity/tenant-id: fdf88c80-36e9-45ee-a0b2-d7eb687e39eb
