@@ -73,13 +73,14 @@ In Kubernetes, namespaces provide a mechanism for isolating groups of resources 
 ## Task 1
 
 You will now build an image and deploy it to the Azure Container Registry (ACR). 
-All containers must have a unique name within the ACR. 
-During this workshop you should choose a unique prefix so all your images gets a uniqe name, for instance your full name.
+All containers must have a unique name within the ACR.
+
+During this workshop you should choose a unique prefix so all your images gets a uniqe name, for instance your full name. Only use lowercase letters. Use this prefix instead of `<uri-prefix>` in the commands below.
 
 ### Build and push image to registry
  
- - Navigate to `aspnetapp\aspnetapp\Program.cs` and update line 24 with a unique path
- - Build the Dockerfile in `aspnetapp`. Choose a prefix so that all of your images get a unique name and run:
+ - Open `aspnetapp\aspnetapp\Program.cs` and update line 24 with a unique path
+ - Navigate to `aspnetapp` and build the Dockerfile:
 
 ```bash
 az acr build --image <uri-prefix>/aspnet:v1 --registry workshopacrsqr2klsnuxgxa --file Dockerfile .
